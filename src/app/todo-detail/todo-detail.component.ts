@@ -20,27 +20,48 @@ export class TodoDetailComponent implements OnInit {
   onSave(todo) {
     if (todo.id) {
       this.http.patch('http://myapp.test/api/todos/' + todo.id, todo)
-        .subscribe(() => {
-          this.messageService.add('Todo with id ' + todo.id + ' updated.');
-        });
+        .subscribe(
+          suc => {
+            this.messageService.add('Todo with id ' + todo.id + ' updated.');
+          },
+          err => {
+            for (let [key, value] of Object.entries(err.error.errors)) {
+              this.messageService.add(value);
+            }
+          }
+        );
 
       return;
     }
 
     this.http.post('http://myapp.test/api/todos/', todo)
-      .subscribe((res) => {
-        this.todoChange.emit(res);
-        this.messageService.add('Successfully created new Todo.');
-      });
-    this.todo = null;
+      .subscribe(
+        suc => {
+          this.todoChange.emit(suc);
+          this.messageService.add('Successfully created new Todo.');
+          this.todo = null;
+        },
+        err => {
+          for (let [key, value] of Object.entries(err.error.errors)) {
+            this.messageService.add(value);
+          }
+        }
+      );
   }
   onDelete(todo) {
     this.http.delete('http://myapp.test/api/todos/' + todo.id)
-      .subscribe(() => {
-        this.todoDelete.emit(todo);
-        this.todo = null;
-        this.messageService.add('Todo with id ' + todo.id + ' deleted.');
-      });
+      .subscribe(
+        suc => {
+          this.todoDelete.emit(todo);
+          this.todo = null;
+          this.messageService.add('Todo with id ' + todo.id + ' deleted.');
+        },
+        err => {
+          for (let [key, value] of Object.entries(err.error.errors)) {
+            this.messageService.add(value);
+          }
+        }
+      );
   }
 
   ngOnInit() {

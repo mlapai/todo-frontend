@@ -34,7 +34,14 @@ export class TodosComponent implements OnInit {
   getTodos() {
     this.http
       .get('http://myapp.test/api/todos')
-      .subscribe((res) => this.todos = res, err => console.log(err));
+      .subscribe(
+        suc => this.todos = suc,
+        err => {
+          for (let [key, value] of Object.entries(err.error.errors)) {
+            this.messageService.add(value);
+          }
+        }
+      );
     this.messageService.add('Fetched todos');
   }
 
