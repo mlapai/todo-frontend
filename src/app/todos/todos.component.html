@@ -6,5 +6,6 @@
     <span class="badge">{{todo.id}}</span> {{todo.subject}}
   </li>
 </ul>
+<button (click)="onCreate()">Create new Todo</button>
 
 <app-todo-detail [todo]="selectedTodo"></app-todo-detail>

@@ -16,7 +16,7 @@
       <input [(ngModel)]="todo.finished" placeholder="finished">
     </label>
     <button (click)="onSave(todo)">Save</button>
-    <button (click)="onDelete(todo)">Delete</button>
+    <button *ngIf="todo.id" (click)="onDelete(todo)">Delete</button>
   </div>
 
 </div>

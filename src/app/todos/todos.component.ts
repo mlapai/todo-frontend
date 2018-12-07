@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from '../message.service';
+import {Todo} from '../todo';
 
 @Component({
   selector: 'app-todos',
@@ -18,6 +19,9 @@ export class TodosComponent implements OnInit {
   selectedTodo: any;
   onSelect(todo): void {
     this.selectedTodo = todo;
+  }
+  onCreate() {
+    this.selectedTodo = new Todo();
   }
   getTodos() {
     this.http
