@@ -18,7 +18,14 @@ export class TodoDetailComponent implements OnInit {
   onSave(todo) {
     this.http.patch('http://myapp.test/api/todos/' + todo.id, todo)
       .subscribe(() => {
-        this.messageService.add('Todo with id ' + todo.id + ' updated');
+        this.messageService.add('Todo with id ' + todo.id + ' updated.');
+      });
+  }
+  onDelete(todo) {
+    this.http.delete('http://myapp.test/api/todos/' + todo.id)
+      .subscribe(() => {
+        this.todo = null;
+        this.messageService.add('Todo with id ' + todo.id + ' deleted.');
       });
   }
 
