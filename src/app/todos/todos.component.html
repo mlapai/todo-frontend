@@ -8,4 +8,4 @@
 </ul>
 <button (click)="onCreate()">Create new Todo</button>
 
-<app-todo-detail [todo]="selectedTodo"></app-todo-detail>
+<app-todo-detail [todo]="selectedTodo" (todoChange)="pushInTodos($event)" (todoDelete)="deleteFromTodos($event)"></app-todo-detail>

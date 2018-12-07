@@ -23,6 +23,14 @@ export class TodosComponent implements OnInit {
   onCreate() {
     this.selectedTodo = new Todo();
   }
+  pushInTodos(todo) {
+    this.todos.push(todo);
+  }
+  deleteFromTodos(todo) {
+    this.todos = this.todos.filter(function (obj) {
+      return obj.id !== todo.id;
+    });
+  }
   getTodos() {
     this.http
       .get('http://myapp.test/api/todos')
